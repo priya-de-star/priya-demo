@@ -5,5 +5,4 @@ jobs:
    echo:
    runs-on: ubuntu-latest
    steps:
-     -name: Show the trigger,
-    
+     -name: Show the trigger
