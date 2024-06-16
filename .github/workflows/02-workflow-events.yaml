@@ -2,13 +2,13 @@ name: 02-workflow-events
 on: 
   push:
     pull_request:
-    schedule: 
-      workflow_dispatch:
+       schedule: 
+        workflow_dispatch:
 
 
 jobs:
    echo:
     runs-on: ubuntu-latest
-      steps:
-        -name: Show the trigger
-         run: "I've been triggerd by a(n) ${{github.event_name}} event."
+     steps:
+    -name: Show the trigger
+    run: "I've been triggerd by a(n) ${{github.event_name}} event."
