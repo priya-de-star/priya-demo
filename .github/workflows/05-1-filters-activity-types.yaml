@@ -4,8 +4,7 @@ name: 05-1-filters-activity-types.yaml
 on:
     pull_request:
         types:
-          - opened
-          - synchronize
+          - closed
         branches:
           - main
 
@@ -15,6 +14,6 @@ jobs:
     echo:
         runs-on: ubuntu-latest
         steps:
-            - run: echo "Running whenever a PR is opened or synchronized AND base branch is main."
+            - run: echo "Running whenever a PR is closed".
 
 
