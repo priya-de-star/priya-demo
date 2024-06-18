@@ -20,7 +20,6 @@ jobs:
     steps:
           - name: Display Information
             run: |
-                 
                 echo "events: ${{ github.event_name }}"
             
                 echo "Ref: ${{ github.ref }}"
