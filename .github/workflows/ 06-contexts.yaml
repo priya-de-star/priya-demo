@@ -14,9 +14,9 @@ jobs:
                 
                 echo "events: ${{ github.event_name }}"
                 
-                echo "Ref: ${{ github.action.ref }}"
+                echo "Ref: ${{ github.ref }}"
                 
-                echo "SHA: ${{ github.action.sha}}"
+                echo "SHA: ${{ github.sha}}"
                 
                 echo "Actor: ${{ github.actor }}"
                 
