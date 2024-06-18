@@ -24,6 +24,6 @@ jobs:
                 echo "Run ID: <retrieve the run ID here>"
                 
                 echo "Run number: <retrieve the run number here>"
-                
+
           - name: Retrieve Variable
-            run: echo "MY_VAR"       
+            run:  MY_VAR       
