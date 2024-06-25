@@ -1,26 +1,14 @@
-name: First Workflow
+name: Simple Action
 on: [push]
 
 jobs:
-  run-shell-commands:
+  simple-action:
     runs-on: ubuntu-latest
     steps:
-      - name: echo a string
-        run: echo "Hello World"
-      - name: Multiline Command
-        run: |
-          node -v
-          npm -v
-  parallel-job-macos:
-    runs-on: macos-latest
-    steps:
-      - name: View SW Version
-        run: sw_vers
-  dependant-job:
-    runs-on: windows-latest
-    needs: run-shell-commands
-    steps:
-      - name: echo a string
-        run: Write-Output "Windows String"
-      - name: Error Step
-        run: doesnotexits
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@e76147da8e5c81eaf017dede5645551d4b94427b
+        with:
+          who-to-greet: Ali
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
