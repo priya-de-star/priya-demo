@@ -1,26 +1,28 @@
-name: First Workflow
-on: [push]
+name: Release Deployment
+
+on:
+  release:
+    types: [created]
 
 jobs:
-  run-shell-commands:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: echo a string
-        run: echo "Hello World"
-      - name: Multiline Command
-        run: |
-          node -v
-          npm -v
-  parallel-job-macos:
-    runs-on: macos-latest
-    steps:
-      - name: View SW Version
-        run: sw_vers
-  dependant-job:
-    runs-on: windows-latest
-    needs: run-shell-commands
-    steps:
-      - name: echo a string
-        run: Write-Output "Windows String"
-      - name: Error Step
-        run: doesnotexits
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build
+
+    - name: Deploy application
+      run: ./deploy.sh  # Assuming you have a deployment script
+
