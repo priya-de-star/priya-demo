@@ -1,12 +1,15 @@
-name: Release Deployment
+name: CI
 
-on:
-  release:
-    types: [created]
+on: [push, pull_request]
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [12, 14, 16]
 
     steps:
     - name: Checkout code
@@ -15,14 +18,10 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: ${{ matrix.node }}
 
     - name: Install dependencies
       run: npm install
 
-    - name: Build project
-      run: npm run build
-
-    - name: Deploy application
-      run: ./deploy.sh  # Assuming you have a deployment script
-
+    - name: Run tests
+      run: npm test
