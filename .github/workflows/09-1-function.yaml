@@ -1,14 +1,13 @@
-name: first Workflow
-on: [push, pull_request]
+name: First Workflow
+on: [push]
 
 jobs:
-   checkout-action: 
-     runs-on: ubuntu-latest
-     steps:
-        - name: listing files before
-          run: ls -a
-        - uses: actions/checkout@v3
-        - name: listing files after
-          run: ls -a
-
-
+  run-shell-commands:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo a string
+        run: echo "Hello World"
+      - name: Multiline Command
+        run: |
+          node -v
+          npm -v
