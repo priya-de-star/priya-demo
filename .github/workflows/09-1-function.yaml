@@ -1,38 +1,17 @@
-name: Working Dirs & Shells
+name: Checkout
 on: [push]
-defaults:
-  run:
-    shell: bash
-    # working-directory: /de/ed
+
 jobs:
-  display-wd-info:
+  checkout-and-display-files:
     runs-on: ubuntu-latest
     steps:
-      - name: Display Working Directory & List Files
+      - name: List Files Before
+        run: ls -a
+      - name: Checkout
         run: |
-          pwd
-          ls -a
-          echo $GITHUB_SHA
-          echo $GITHUB_REPOSITORY
-          echo $GITHUB_WORKSPACE
-      - name: Change Working Dir
-        working-directory: /home/runner
-        run: pwd
-  display-wd-info-windows:
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: pwsh
-    steps:
-      - name: Display Working Directory & List Files
-        run: |
-          Get-Location
-          dir
-          echo $env:GITHUB_SHA
-          echo $env:GITHUB_REPOSITORY
-          echo $env:GITHUB_WORKSPACE
-      - name: Python Shell
-        shell: python
-        run: |
-          import platform 
-          print(platform.processor())
+          git init
+          git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+          git fetch origin
+          git checkout main
+      - name: List Files After
+        run: ls -a
