@@ -1,29 +1,38 @@
-
-
-
-name: First Workflow
+name: Working Dirs & Shells
 on: [push]
-
+defaults:
+  run:
+    shell: bash
+    # working-directory: /de/ed
 jobs:
-  run-shell-commands:
+  display-wd-info:
     runs-on: ubuntu-latest
     steps:
-      - name: echo a string
-        run: echo "Hello World"
-      - name: Multiline Command
+      - name: Display Working Directory & List Files
         run: |
-          node -v
-          npm -v
-  parallel-job-macos:
-    runs-on: macos-latest
-    steps:
-      - name: View SW Version
-        run: sw_vers
-  dependant-job:
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+      - name: Change Working Dir
+        working-directory: /home/runner
+        run: pwd
+  display-wd-info-windows:
     runs-on: windows-latest
-    needs: run-shell-commands
+    defaults:
+      run:
+        shell: pwsh
     steps:
-      - name: echo a string
-        run: Write-Output "Windows String"
-      - name: Error Step
-        run: doesnotexits
+      - name: Display Working Directory & List Files
+        run: |
+          Get-Location
+          dir
+          echo $env:GITHUB_SHA
+          echo $env:GITHUB_REPOSITORY
+          echo $env:GITHUB_WORKSPACE
+      - name: Python Shell
+        shell: python
+        run: |
+          import platform 
+          print(platform.processor())
