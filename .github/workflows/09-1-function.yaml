@@ -1,20 +1,18 @@
-name: Hi Mascot
-on: push
+name: Conditional env variable
+
+on: workflow_dispatch
+
 env:
-  mascot: Mona
-  super_duper_var: totally_awesome
+  DAY_OF_WEEK: Monday
 
 jobs:
-  windows_job:
-    runs-on: windows-latest
-    steps:
-      - run: echo 'Hi ${{ env.mascot }}'  # Hi Mona
-      - run: echo 'Hi ${{ env.mascot }}'  # Hi Octocat
-        env:
-          mascot: Octocat
-  linux_job:
+  greeting_job:
     runs-on: ubuntu-latest
     env:
-      mascot: Tux
+      Greeting: Hello
     steps:
-      - run: echo 'Hi ${{ env.mascot }}'  # Hi Tux
+      - name: "Say Hello Mona it's Monday"
+        if: ${{ env.DAY_OF_WEEK == 'Monday' }}
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
